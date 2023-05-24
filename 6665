@@ -1,0 +1,30 @@
+
+def count_blocks(A, max_sum):
+    blocks = 1
+    current_sum = 0
+
+    for num in A:
+        current_sum += num
+
+        if current_sum > max_sum:
+            current_sum = num
+            blocks += 1
+
+    return blocks
+
+def solution(K, M, A):
+    min_sum = max(A)
+    max_sum = sum(A)
+    result = max_sum
+
+    while min_sum <= max_sum:
+        mid = (min_sum + max_sum) // 2
+        blocks = count_blocks(A, mid)
+
+        if blocks <= K:
+            result = mid
+            max_sum = mid - 1
+        else:
+            min_sum = mid + 1
+
+    return result
